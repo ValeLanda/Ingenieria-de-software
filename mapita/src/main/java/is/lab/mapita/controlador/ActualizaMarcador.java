@@ -5,7 +5,6 @@
  */
 package is.lab.mapita.controlador;
 
-import com.mycompany.mapita.Usuario;
 import com.mycompany.mapita.Marcador;
 import com.mycompany.mapita.MarcadorDAO;
 import javax.faces.bean.ManagedBean;
