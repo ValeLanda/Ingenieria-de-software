@@ -6,6 +6,10 @@
 package com.mycompany.mapita;
 
 import java.util.List;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 
 /**
@@ -62,6 +66,32 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         return super.findAll(Usuario.class);
     
     }
+    
+    public List<Usuario>buscaPorNombre(String nombre){
+        List<Usuario> usuarios = null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx= session.beginTransaction();
+            String hql = "From Usuario u where u.nombre like concat('%',:nombre,'%)";
+            Query query = session.createQuery(hql);
+            query.setParameter("nombre", nombre);
+            usuarios = (List<Usuario>)query.list();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return usuarios;
+    }
+        
+       
+    
+    
    
     
     
