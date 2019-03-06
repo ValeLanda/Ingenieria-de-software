@@ -81,6 +81,8 @@ and open the template in the editor.
                 <p:inputNumber id="latitud" value="#{actualizaMarcador.latitud}" placeholder="Latitud"/> <br/>
                 <p:commandButton action="#{actualizaMarcador.actualizaMarcador()}" value="Actualizar" ajax="false"/>
             </h:form>
+            <br/>
+            <p:commandButton id="cerrarsesion" action="#{controladorSesion.logout()}" value="Cerrar Sesión"/>
             
         </h:body>
     </f:view>
