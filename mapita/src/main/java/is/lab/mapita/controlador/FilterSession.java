@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  *
  * @author vale
@@ -26,18 +25,28 @@ import javax.servlet.http.HttpSession;
 
 @WebFilter("/user/*")
 public class FilterSession implements Filter {
-   
-    @Override 
-    public void init(FilterConfig filterConfig) throws ServletException{
-        throw new UnsupportedOperationException("Not supported yet.");
-        
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+//        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    @Override 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException{
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         HttpSession session = req.getSession(true);
-        
-    } 
+         if (session.getAttribute("user") == null) {
+            res.sendRedirect(req.getContextPath() + "/index.xhtml"); // Si no se encuentra el usuario redire al index.
+        }
+        else {
+            chain.doFilter(req, res); // esta logueado se continua con lo que se solicito.
+        }
+    }
+
+    @Override
+    public void destroy() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

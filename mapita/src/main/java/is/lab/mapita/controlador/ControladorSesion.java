@@ -5,21 +5,21 @@
  */
 package is.lab.mapita.controlador;
 
-import com.mycompany.mapita.Usuario;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import com.mycompany.mapita.Usuario;
+import com.mycompany.mapita.UsuarioDAO;
 
 /**
  *
- * @author vale
+ * @author mauricio07
  */
-
 @ManagedBean
 @SessionScoped
-public class Sesion {
+public class ControladorSesion {
     private String correo;
-    private String contrasenia;
+    private String contrasesnia;
 
     public String getCorreo() {
         return correo;
@@ -29,28 +29,27 @@ public class Sesion {
         this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContrasesnia() {
+        return contrasesnia;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContrasesnia(String contrasesnia) {
+        this.contrasesnia = contrasesnia;
     }
     
     public String login(){
-        Usuario user = null;
+        UsuarioDAO udb = new UsuarioDAO();
+        Usuario user = udb.buscaPorDatos(correo, contrasesnia);
         FacesContext context = FacesContext.getCurrentInstance();
-        if(user != null){
+        if(user !=null){
             context.getExternalContext().getSessionMap().put("user", user);
-            return "perfil?faces-redirect=true";
+            return "/user/perfil?faces-redirect=true";
         }
         return "";
     }
     
-    public String logout() {
+    public String logout(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "index?faces-redirect=true";
+        return "/index?faces-redirect=true";
     }
-
-    
 }

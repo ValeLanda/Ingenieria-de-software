@@ -13,8 +13,9 @@ import javax.faces.bean.ManagedBean;
 
 /**
  *
- * @author vale
+ * @author gareki
  */
+
 @ManagedBean
 public class ActualizaMarcador {
       

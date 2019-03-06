@@ -67,13 +67,15 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
     
     }
     
-    public List<Usuario>buscaPorNombre(String nombre){
-        List<Usuario> usuarios = null;
+    public List<Usuario> buscaPorNombre(String nombre){
+//        if(nombre.equals(""))
+//            return null;
+        List<Usuario> usuarios =null;
         Session session = this.sessionFactory.openSession();
         Transaction tx = null;
         try{
-            tx= session.beginTransaction();
-            String hql = "From Usuario u where u.nombre like concat('%',:nombre,'%)";
+            tx = session.beginTransaction();
+            String hql = "From Usuario  u where u.nombre like concat('%',:nombre,'%')";
             Query query = session.createQuery(hql);
             query.setParameter("nombre", nombre);
             usuarios = (List<Usuario>)query.list();
@@ -88,11 +90,30 @@ public class UsuarioDAO extends AbstractDAO<Usuario> {
         }
         return usuarios;
     }
-        
-       
     
-    
-   
-    
-    
+     public Usuario buscaPorDatos(String correo, String contrasenia){
+//        if(nombre.equals(""))
+//            return null;
+        Usuario usuario =null;
+        Session session = this.sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            String hql = "From Usuario  u where u.correo = :corr and u.contrasenia = :contra";
+            Query query = session.createQuery(hql);
+            query.setParameter("corr", correo); 
+            query.setParameter("contra", contrasenia);
+            usuario = (Usuario)query.uniqueResult();
+            tx.commit();
+        }catch(HibernateException e){
+            if(tx!=null){
+                tx.rollback();
+            }
+            e.printStackTrace();
+        }finally{
+            session.close();
+        }
+        return usuario;
+    }
 }
+  

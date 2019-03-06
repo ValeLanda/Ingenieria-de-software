@@ -19,22 +19,35 @@
                 </h:form>
             </header>
             <main>
-               
                 
+                <aside>
                     <h2>
                         Inicia Sesión
+                    </h2>
+                    <h:form>
+                        <p:inputText id="correo" value="#{controladorSesion.correo}" placeholder="Correo"/> <br/><br/>
+                        <p:password id="contrasenia" value="#{controladorSesion.contrasesnia}" placeholder="Contrasenia"/> <br/><br/>
+                        <p:commandButton action="#{controladorSesion.login()}" value="Aceptar"/> <br/> <br/>
+                    </h:form>
+                
+                    <h2>
+                        Registrate
                     </h2>
                     <h:form>
                         <p:inputText id="nombre" value="#{agregaUsuario.nombre}" placeholder="Nombre"/> <br/>
                         <p:inputText id="correo" value="#{agregaUsuario.correo}" placeholder="Correo"/> <br/>
                         <p:password id="constrasenia" value="#{agregaUsuario.contrasenia}" placeholder="Contrasenia"/> <br/>
-                        <p:commandButton action="#{agregaUsuario.agregaUsuario()}" value="Aceptar"/>
+                        <p:calendar id="fechanacimiento" value="#{agregaUsuario.fechanacimiento}" placeholder="Fecha de nacimiento"/> <br/>
+                        <p:commandButton action="#{agregaUsuario.agregaUsuario()}" value="Registrame" ajax="false" />
                     </h:form>
-                
+                    
+                    
+                    
+                </aside>
             </main>
             <footer>
                 <h3>
-                    Lorem ipsum dolor sit amet.
+                    CRUD creado por el equipo Maave.
                 </h3>
             </footer>
 
